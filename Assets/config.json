@@ -1,0 +1,7 @@
+{
+	"tickMs" : 20.0,
+	"languageDirPath" : "zh_cn",
+	"petDirPath" : "pets\\test",
+	"windowSize" : [ 256, 256 ],
+	"nomalWindowSizeX" : 1920
+}

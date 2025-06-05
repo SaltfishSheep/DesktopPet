@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="头文件\anis">
+      <UniqueIdentifier>{e2d44a6a-be6c-4ce4-917b-123928cc34cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\anis\trans">
+      <UniqueIdentifier>{e2ef4e8c-7fc5-48b8-aa2a-44c081fc419d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="DesktopPet.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="viewport.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="file.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="tick.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="config.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="lang.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ani.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="test.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="trans.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="mouse.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="util.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="viewport.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="file.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="config.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="tick.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="test.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="lang.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ani.h">
+      <Filter>头文件\anis</Filter>
+    </ClInclude>
+    <ClInclude Include="impl_standed.hpp">
+      <Filter>头文件\anis</Filter>
+    </ClInclude>
+    <ClInclude Include="impl_pic.hpp">
+      <Filter>头文件\anis</Filter>
+    </ClInclude>
+    <ClInclude Include="impl_files.hpp">
+      <Filter>头文件\anis</Filter>
+    </ClInclude>
+    <ClInclude Include="impl_shots.hpp">
+      <Filter>头文件\anis</Filter>
+    </ClInclude>
+    <ClInclude Include="impl_repeat.hpp">
+      <Filter>头文件\anis</Filter>
+    </ClInclude>
+    <ClInclude Include="impl_custom.hpp">
+      <Filter>头文件\anis</Filter>
+    </ClInclude>
+    <ClInclude Include="asset.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="trans.h">
+      <Filter>头文件\anis\trans</Filter>
+    </ClInclude>
+    <ClInclude Include="condition_and.hpp">
+      <Filter>头文件\anis\trans</Filter>
+    </ClInclude>
+    <ClInclude Include="condition_or.hpp">
+      <Filter>头文件\anis\trans</Filter>
+    </ClInclude>
+    <ClInclude Include="condition_mouse.hpp">
+      <Filter>头文件\anis\trans</Filter>
+    </ClInclude>
+    <ClInclude Include="condition_not.hpp">
+      <Filter>头文件\anis\trans</Filter>
+    </ClInclude>
+    <ClInclude Include="mouse.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="condition_false.hpp">
+      <Filter>头文件\anis\trans</Filter>
+    </ClInclude>
+    <ClInclude Include="condition_random.hpp">
+      <Filter>头文件\anis\trans</Filter>
+    </ClInclude>
+    <ClInclude Include="condition_true.hpp">
+      <Filter>头文件\anis\trans</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

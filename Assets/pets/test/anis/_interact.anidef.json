@@ -1,0 +1,34 @@
+{
+	"holdOnHand" : {
+		"isHold" : false,
+		"isLoop" : true,
+		"behavior" : "holdOnMouse",
+		"impl" : {
+			"implType" : "SequentialShots",
+			"frameTicks" : 10,
+			"frameOffset" : [ 0, -30],
+			"picPath" : "pets\\test\\anis\\holdOnHand.png",
+			"picStartPoint" : [0, 0],
+			"shotSize" : [500, 500],
+			"xCount" : 11,
+			"yCount" : 1
+		},
+		"transitions" : [
+			{
+				"target" : "idle0",
+				"conditions" : [
+					{
+						"type" : "Not",
+						"sub" : {
+							"type" : "Mouse",
+							"position" : ["up"],
+							"event" : ["long_pressed"]
+						}
+					}
+					
+				]
+			}
+		],
+		"canTransitionAnytime" : false
+	}
+}

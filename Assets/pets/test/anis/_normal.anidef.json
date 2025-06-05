@@ -1,0 +1,81 @@
+{
+	"idle0" : {
+		"isHold" : false,
+		"isLoop" : true,
+		"behavior" : "walk",
+		"impl" : {
+			"implType" : "SinglePicture",
+			"frameOffset" : [ 0, 0],
+			"picPath" : "pets\\test\\anis\\idle0.png"
+		}
+	},
+	"idle1" : {
+		"isHold" : false,
+		"isLoop" : true,
+		"behavior" : "walk",
+		"impl" : {
+			"implType" : "SequentialFiles",
+			"frameTicks" : 10,
+			"frameOffset" : [ 0, 0],
+			"frameScale" : [ 1.0, 1.0 ],
+			"picDir" : "pets\\test\\anis\\idle1",
+			"picCount" : 5
+		}
+	},
+	"idle2" : {
+		"isHold" : false,
+		"isLoop" : true,
+		"behavior" : "walk",
+		"impl" : {
+			"implType" : "SequentialShots",
+			"frameTicks" : 25,
+			"frameOffset" : [ 0, 0],
+			"frameScale" : [ 1.0, 1.0 ],
+			"picPath" : "pets\\test\\anis\\idle2.png",
+			"picStartPoint" : [0, 0],
+			"shotSize" : [500, 500],
+			"xCount" : 11,
+			"yCount" : 1
+		}
+	},
+	"idle3" : {
+		"isHold" : false,
+		"isLoop" : true,
+		"behavior" : "walk",
+		"impl" : {
+			"implType" : "Repeat",
+			"repeatAni" : "idle2"
+		}
+	},
+	"idle4" : {
+		"isHold" : false,
+		"isLoop" : true,
+		"behavior" : "walk",
+		"impl" : {
+			"implType" : "Custom",
+			"impls" : [
+				{
+					"implType" : "SequentialFiles",
+					"frameTicks" : 10,
+					"picDir" : "pets\\test\\anis\\idle1",
+					"picCount" : 5
+				},
+				{
+					"implType" : "SequentialShots",
+					"frameTicks" : 25,
+					"frameOffset" : [ 0, 0],
+					"frameScale" : [ 1.0, 1.0 ],
+					"picPath" : "pets\\test\\anis\\idle2.png",
+					"picStartPoint" : [0, 0],
+					"shotSize" : [500, 500],
+					"xCount" : 11,
+					"yCount" : 1
+				},
+				{
+					"implType" : "Repeat",
+					"repeatAni" : "idle3"
+				}
+			]
+		}
+	}
+}

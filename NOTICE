@@ -1,0 +1,10 @@
+This project includes the following third-party components:
+- [nlohmann_json] (https://github.com/nlohmann/json)  
+  Copyright (c) 2013-2025 Niels Lohmann, Licensed under [MIT License].  
+  Source: third_party/nlohmann_json/LICENSE
+- [SFML] (https://github.com/SFML/SFML)  
+  Copyright (C) 2007-2025 Laurent Gomila, Licensed under [Zlib License].  
+  Source: third_party/SFML/LICENSE
+- [VPet] (https://github.com/LorisYounger/VPet)  
+  Licensed under [Apache 2.0].  
+  Source: third_party/VPet/LICENSE

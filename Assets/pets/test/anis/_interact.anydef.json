@@ -1,0 +1,12 @@
+[
+	{
+		"target" : "holdOnHand",
+		"conditions" : [
+			{
+				"type" : "Mouse",
+				"position" : ["up"],
+				"event" : ["long_pressed"]
+			}
+		]
+	}
+]
