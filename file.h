@@ -3,6 +3,7 @@
 #include <filesystem>
 #include <fstream>
 #include <json.hpp>
+//#include <iostream>
 
 namespace file {
 	std::filesystem::path getPath(std::list<std::string> pathRelative);
@@ -20,4 +21,6 @@ namespace file {
 	inline nlohmann::json loadJson(std::list<std::string> pathRelative) {
 		return loadJson(getPath(pathRelative));
 	}
+	void saveJson(nlohmann::json& data, std::filesystem::path path);
+	void saveJson(nlohmann::json& data, std::list<std::string> pathRelative);
 }

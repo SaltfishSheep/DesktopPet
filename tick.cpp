@@ -30,10 +30,16 @@ void tick::update() {
 }
 
 void tick::tick() {
+    if (forceStop) {
+        viewport::window.close();
+        return;
+    }
     while (auto event = viewport::window.pollEvent())
     {
-        if (event->is<sf::Event::Closed>())
+        if (event->is<sf::Event::Closed>()) {
             viewport::window.close();
+            return;
+        }
         mouse::handleEvent(*event);
     }
     for (auto updater : updaters)
@@ -49,5 +55,13 @@ double tick::getPartialTick() {
 }
 
 void tick::addTickUpdater(ITickUpdater* updater) {
+    for (auto updaterIn  : updaters)
+        if ((*updaterIn) == (*updater))
+            return;
     updaters.push_back(updater);
+}
+
+bool tick::ITickUpdater::operator==(const ITickUpdater& other)
+{
+    return ((ITickUpdater*)this) == (&other);
 }

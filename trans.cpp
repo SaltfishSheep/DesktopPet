@@ -1,6 +1,10 @@
 #include <map>
 
+#include "file.h"
+#include "util.h"
 #include "trans.h"
+#include "config.h"
+#include "ani.h"
 #include "condition_and.hpp"
 #include "condition_or.hpp"
 #include "condition_not.hpp"
@@ -8,12 +12,15 @@
 #include "condition_random.hpp"
 #include "condition_false.hpp"
 #include "condition_true.hpp"
+#include "condition_playend.hpp"
 
 #include <iostream>
 
+using namespace trans;
+
 std::map<std::string, trans::IConditionFactory*> factories;
 
-void trans::initFactories() {
+static void initFactories() {
 	std::list<IConditionFactory*> conditionFactories;
     conditionFactories.push_back(new ConditionAndFactory());
     conditionFactories.push_back(new ConditionOrFactory());
@@ -22,10 +29,36 @@ void trans::initFactories() {
     conditionFactories.push_back(new ConditionRandomFactory());
     conditionFactories.push_back(new ConditionFalseFactory());
     conditionFactories.push_back(new ConditionTrueFactory());
+    conditionFactories.push_back(new ConditionPlayEndFactory());
     for (auto factory : conditionFactories) {
         factories[factory->type()] = factory;
     }
 }
+
+void trans::init(){
+    initFactories();
+    for (const auto& entry : std::filesystem::directory_iterator(file::getPath({ config::guideGlobal.petDirPath, "anis" }))) {
+        if (!entry.is_regular_file())
+            continue;
+        std::string pathStr = entry.path().u8string();
+        try {
+            if (util::endsWith(pathStr, ".anydef.json")) {
+                std::string defPath = pathStr.substr(pathStr.find_last_of('\\') + 1);
+                std::cout << "Define transition anytime from " << defPath << '.' << std::endl;
+                auto json = file::loadJson(entry.path());
+                for (auto& transitionData : json.items()) {
+                    auto transition = trans::loadTransition(transitionData.value());
+                    ani::animationController.addTransitionAnytime(transition);
+                    std::cout << "- target: " << transition->getTransition() << std::endl;
+                }
+            }
+        }
+        catch (std::exception& e) {
+            std::cout << "Error in loading json, file: " << pathStr << std::endl;
+        }
+    }
+}
+
 trans::ICondition* trans::loadCondition(nlohmann::json& conditionData)
 {
 	auto type = conditionData["type"].get<std::string>();

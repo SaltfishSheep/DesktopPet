@@ -1,0 +1,14 @@
+[
+	{
+		"name" : "cola",
+		"keyI18N" : "shop.mcdonald.cola",
+		"price" : 300,
+		"icon" : "shops\\mcdonald\\cola.png"
+	},
+	{
+		"name" : "hamburger",
+		"keyI18N" : "shop.mcdonald.hamburger",
+		"price" : 1800,
+		"icon" : "shops\\mcdonald\\hamburger.png"
+	}
+]

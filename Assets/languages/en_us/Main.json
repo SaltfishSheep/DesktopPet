@@ -1,0 +1,20 @@
+{
+	"money" : "$",
+	
+	"gui.basic.shop" : "Shopping",
+	"gui.basic.shop.default" : "Supermarket",
+	"gui.basic.state" : "State",
+	"gui.basic.state.money" : "Money: ",
+	"gui.basic.interact" : "Interact",
+	"gui.basic.interact.money" : "Free money",
+	"gui.basic.interact.money.fall" : "+1000$",
+	"gui.basic.system" : "System",
+	"gui.basic.system.exit" : "Exit",
+
+	"shop.convenience" : "Convenient Store",
+	"shop.convenience.water" : "Bottled Water",
+
+	"shop.mcdonald" : "McDonald's",
+	"shop.mcdonald.cola" : "Cola",
+	"shop.mcdonald.hamburger" : "Hamburger"
+}

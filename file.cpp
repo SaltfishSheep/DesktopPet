@@ -57,17 +57,29 @@ std::ofstream file::getOutput(std::list<std::string> pathRelative, bool isBinary
 }
 
 nlohmann::json& file::loadJson(nlohmann::json& store, std::filesystem::path path) {
+	auto input = getInput(path, false);
 	try {
-		store = nlohmann::json::parse(getInput(path, false));
+		store = nlohmann::json::parse(input);
 	}
 	catch (exception e) {
 		throw exception("Error on loading json file. Maybe it is not in the correct format");
 	}
+    input.close();
 	return store;
 }
 
 nlohmann::json& file::loadJson(nlohmann::json& store, std::list<std::string> pathRelative) {
 	return loadJson(store, getPath(pathRelative));
+}
+
+void file::saveJson(nlohmann::json& data, std::filesystem::path path) {
+	auto output = getOutput(path, false);
+	output << std::setw(4) << data;
+	output.close();
+}
+
+void file::saveJson(nlohmann::json& data, std::list<std::string> pathRelative) {
+	saveJson(data, getPath(pathRelative));
 }
 
 

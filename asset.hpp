@@ -10,7 +10,7 @@ namespace asset {
 
 	inline std::map<std::filesystem::path, sf::Texture*> texs;
 
-	sf::Texture* getTexture(std::filesystem::path path) {
+	inline sf::Texture* getTexture(std::filesystem::path path) {
 		auto iter = texs.find(path);
 		if (iter != texs.end())
 			return (*iter).second;
@@ -29,7 +29,7 @@ namespace asset {
 		return tex;
 	}
 
-	sf::Texture* getTexture(std::list<std::string> path) {
+	inline sf::Texture* getTexture(std::list<std::string> path) {
 		return getTexture(file::getPath(path));
 	}
 

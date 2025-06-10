@@ -1,6 +1,20 @@
 {
-	"menu.shop" : "商店",
-	"menu.state" : "状态",
-	"menu.task" : "安排",
-	"menu.setting" : "设置"
+	"money" : "￥",
+
+	"gui.basic.shop" : "购物",
+	"gui.basic.shop.default" : "商场",
+	"gui.basic.state" : "状态",
+	"gui.basic.state.money" : "金钱：",
+	"gui.basic.interact" : "互动",
+	"gui.basic.interact.money" : "免费马内",
+	"gui.basic.interact.money.fall" : "+1000￥",
+	"gui.basic.system" : "系统",
+	"gui.basic.system.exit" : "退出桌宠",
+
+	"shop.convenience" : "便利店",
+	"shop.convenience.water" : "矿泉水",
+
+	"shop.mcdonald" : "M纪快餐",
+	"shop.mcdonald.cola" : "百事可乐",
+	"shop.mcdonald.hamburger" : "快餐汉堡"
 }

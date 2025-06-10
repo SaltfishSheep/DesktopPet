@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include <map>
 
 namespace mouse {
 
@@ -16,11 +17,22 @@ namespace mouse {
 		long pressedTick = 0, releasedTick = 0;
 	};
 
-	bool isPressed(mouse::MouseButton button, float judgeEnabledDelay = 0);
-	bool isReleased(mouse::MouseButton button, float judgeEnabledDelay = 0);
-	bool isClick(mouse::MouseButton button, float judgeEnabledDelay = 0);
-	bool isLongPressed(mouse::MouseButton button);
-	float getWheelState(float judgeEnabledDelay = 0);
-	void handleEvent(sf::Event& event);
+	struct WindowData {
+		float longPressedBoundary = 0.2;
+
+		std::map<mouse::MouseButton, mouse::MouseState> states;
+
+		float wheelState = 0;
+		long wheelTick = 0;
+	};
+
+	inline WindowData main;
+
+	bool isPressed(mouse::MouseButton button, float judgeEnabledDelay = 0, WindowData& data = main);
+	bool isReleased(mouse::MouseButton button, float judgeEnabledDelay = 0, WindowData& data = main);
+	bool isClick(mouse::MouseButton button, float judgeEnabledDelay = 0, WindowData& data = main);
+	bool isLongPressed(mouse::MouseButton button, WindowData& data = main);
+	float getWheelState(float judgeEnabledDelay = 0, WindowData& data = main);
+	void handleEvent(sf::Event& event, WindowData& data = main);
 
 }

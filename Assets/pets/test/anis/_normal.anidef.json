@@ -1,18 +1,42 @@
 {
 	"idle0" : {
-		"isHold" : false,
-		"isLoop" : true,
-		"behavior" : "walk",
+		"isHold" : true,
 		"impl" : {
 			"implType" : "SinglePicture",
+			"frameTicks" : 0,
 			"frameOffset" : [ 0, 0],
 			"picPath" : "pets\\test\\anis\\idle0.png"
-		}
+		},
+		"transitions" : [
+			{
+				"target" : "idle1",
+				"conditions" : [
+					{
+						"type" : "Random",
+						"chance" : 0.33
+					}
+				]
+			},
+			{
+				"target" : "idle2",
+				"conditions" : [
+					{
+						"type" : "Random",
+						"chance" : 0.4925
+					}
+				]
+			},
+			{
+				"target" : "idle3",
+				"conditions" : [
+					{
+						"type" : "True"
+					}
+				]
+			}
+		]
 	},
 	"idle1" : {
-		"isHold" : false,
-		"isLoop" : true,
-		"behavior" : "walk",
 		"impl" : {
 			"implType" : "SequentialFiles",
 			"frameTicks" : 10,
@@ -20,12 +44,58 @@
 			"frameScale" : [ 1.0, 1.0 ],
 			"picDir" : "pets\\test\\anis\\idle1",
 			"picCount" : 5
-		}
+		},
+		"transitions" : [
+			{
+				"target" : "walk0",
+				"conditions" : [
+					{
+						"type" : "PlayEnd"
+					},
+					{
+						"type" : "Random",
+						"chance" : 0.11
+					}
+				]
+			},
+			{
+				"target" : "walk1",
+				"conditions" : [
+					{
+						"type" : "PlayEnd"
+					},
+					{
+						"type" : "Random",
+						"chance" : 0.15
+					}
+				]
+			},
+			{
+				"target" : "idle2",
+				"conditions" : [
+					{
+						"type" : "PlayEnd"
+					},
+					{
+						"type" : "Random",
+						"chance" : 0.6
+					}
+				]
+			},
+			{
+				"target" : "idle3",
+				"conditions" : [
+					{
+						"type" : "PlayEnd"
+					},
+					{
+						"type" : "True"
+					}
+				]
+			}	
+		]
 	},
 	"idle2" : {
-		"isHold" : false,
-		"isLoop" : true,
-		"behavior" : "walk",
 		"impl" : {
 			"implType" : "SequentialShots",
 			"frameTicks" : 25,
@@ -36,21 +106,139 @@
 			"shotSize" : [500, 500],
 			"xCount" : 11,
 			"yCount" : 1
-		}
+		},
+		"transitions" : [
+			{
+				"target" : "walk0",
+				"conditions" : [
+					{
+						"type" : "PlayEnd"
+					},
+					{
+						"type" : "Random",
+						"chance" : 0.11
+					}
+				]
+			},
+			{
+				"target" : "walk1",
+				"conditions" : [
+					{
+						"type" : "PlayEnd"
+					},
+					{
+						"type" : "Random",
+						"chance" : 0.15
+					}
+				]
+			},
+			{
+				"target" : "idle1",
+				"conditions" : [
+					{
+						"type" : "PlayEnd"
+					},
+					{
+						"type" : "Random",
+						"chance" : 0.3
+					}
+				]
+			},
+			{
+				"target" : "idle2",
+				"conditions" : [
+					{
+						"type" : "PlayEnd"
+					},
+					{
+						"type" : "Random",
+						"chance" : 0.6
+					}
+				]
+			},
+			{
+				"target" : "idle3",
+				"conditions" : [
+					{
+						"type" : "PlayEnd"
+					},
+					{
+						"type" : "True"
+					}
+				]
+			}		
+		]
 	},
 	"idle3" : {
-		"isHold" : false,
-		"isLoop" : true,
-		"behavior" : "walk",
 		"impl" : {
 			"implType" : "Repeat",
-			"repeatAni" : "idle2"
-		}
+			"repeatAni" : "idle1"
+		},
+		"transitions" : [
+			{
+				"target" : "walk0",
+				"conditions" : [
+					{
+						"type" : "PlayEnd"
+					},
+					{
+						"type" : "Random",
+						"chance" : 0.11
+					}
+				]
+			},
+			{
+				"target" : "walk1",
+				"conditions" : [
+					{
+						"type" : "PlayEnd"
+					},
+					{
+						"type" : "Random",
+						"chance" : 0.15
+					}
+				]
+			},
+			{
+				"target" : "idle1",
+				"conditions" : [
+					{
+						"type" : "PlayEnd"
+					},
+					{
+						"type" : "Random",
+						"chance" : 0.3
+					}
+				]
+			},
+			{
+				"target" : "idle2",
+				"conditions" : [
+					{
+						"type" : "PlayEnd"
+					},
+					{
+						"type" : "Random",
+						"chance" : 0.6
+					}
+				]
+			},
+			{
+				"target" : "idle3",
+				"conditions" : [
+					{
+						"type" : "PlayEnd"
+					},
+					{
+						"type" : "True"
+					}
+				]
+			}		
+		]
 	},
-	"idle4" : {
+	"idle_test" : {
 		"isHold" : false,
 		"isLoop" : true,
-		"behavior" : "walk",
 		"impl" : {
 			"implType" : "Custom",
 			"impls" : [
@@ -77,5 +265,84 @@
 				}
 			]
 		}
+	},
+	"walk0" : {
+		"isLoop" : true,
+		"behavior" : "walk",
+		"facing" : "right",
+		"impl" : {
+			"implType" : "SequentialShots",
+			"picPath" : "pets\\test\\anis\\walk0.png",
+			"shotSize" : [500, 500],
+			"xCount" : 6,
+			"yCount" : 1
+		}, 
+		"transitions" : [
+			{
+				"target" : "idle1",
+				"conditions" : [
+					{
+						"type" : "Random",
+						"chance" : 0.00165
+					}
+				]
+			},
+			{
+				"target" : "idle2",
+				"conditions" : [
+					{
+						"type" : "Random",
+						"chance" : 0.002463
+					}
+				]
+			},
+			{
+				"target" : "idle3",
+				"conditions" : [
+					{
+						"type" : "Random",
+						"chance" : 0.005
+					}
+				]
+			}
+		]
+	},
+	"walk1" : {
+		"isLoop" : true,
+		"behavior" : "follow",
+		"facing" : "right",
+		"impl" : {
+			"implType" : "Repeat",
+			"repeatAni" : "walk0"
+		}, 
+		"transitions" : [
+			{
+				"target" : "idle1",
+				"conditions" : [
+					{
+						"type" : "Random",
+						"chance" : 0.00165
+					}
+				]
+			},
+			{
+				"target" : "idle2",
+				"conditions" : [
+					{
+						"type" : "Random",
+						"chance" : 0.002463
+					}
+				]
+			},
+			{
+				"target" : "idle3",
+				"conditions" : [
+					{
+						"type" : "Random",
+						"chance" : 0.005
+					}
+				]
+			}
+		]
 	}
 }

@@ -15,22 +15,35 @@ using namespace std;
 
 const string guideGlobalPath = "config.json";
 
-bool endsWith(std::string const& str, std::string const& suffix) {
-	if (str.length() < suffix.length()) {
-		return false;
-	}
-	return str.compare(str.length() - suffix.length(), suffix.length(), suffix) == 0;
-}
-
 void config::loadConfig() {
-	double screenWidth = GetSystemMetrics(SM_CXSCREEN);
+	HWND hd = GetDesktopWindow();
+	int zoom = GetDpiForWindow(hd);
+	switch (zoom) {
+	case 96:
+		dpi = 1;
+		break;
+	case 120:
+		dpi = 1.25;
+		break;
+	case 144:
+		dpi = 1.5;
+		break;
+	case 192:
+		dpi = 2;
+		break;
+	default:
+		break;
+	}
+	screenWidth = GetSystemMetrics(SM_CXSCREEN) * dpi;
+	screenHeight = GetSystemMetrics(SM_CYSCREEN) * dpi;
+	std::cout << "Screen size: " << screenWidth << "x" << screenHeight << std::endl;
 	double screenScale = 1;
 	json cache;
 
 	cout << "Loading config." << endl;
 	try {
 		guideGlobal = loadJson(cache, list{ guideGlobalPath });
-		screenScale = screenWidth / guideGlobal.nomalWindowSizeX;
+		screenScale = ((float)screenWidth) / guideGlobal.nomalWindowSizeX;
 		guideGlobal.windowSize = {
 			(int)(guideGlobal.windowSize[0] * screenScale),
 			(int)(guideGlobal.windowSize[1] * screenScale)
@@ -40,17 +53,25 @@ void config::loadConfig() {
 		cout << "Error in loading json, file: " << guideGlobalPath << endl;
 		throw exception("Basic config wrong.");
 	}
+
+	cout << "Loading font." << endl;
+	try {
+		config::font = sf::Font(file::getPath({ guideGlobal.font }));
+	} catch (exception& e) {
+		cout << "Error in loading font, file: " << guideGlobal.font << endl;
+		throw exception("Basic config wrong.");
+	}
 	
 	
-	cout << "Loading languages:" << endl;
+	cout << "Loading languages: " << guideGlobal.languageDirPath << endl;
 	for (const auto& entry : std::filesystem::directory_iterator(getPath({ "languages", guideGlobal.languageDirPath}))) {
 		if (!entry.is_regular_file())
 			continue;
-		if (!endsWith(entry.path().u8string(), ".json"))
+		if (!util::endsWith(entry.path().u8string(), ".json"))
 			continue;
 		try {
 			lang::load(loadJson(cache, entry.path()));
-			cout << "- " << guideGlobal.languageDirPath << endl;
+			cout << "- " << entry.path().filename() << endl;
 		} catch (exception& e) {
 			cout << "Error in loading json, file: " << entry.path().u8string() << endl;
 		}
@@ -68,39 +89,10 @@ void config::loadConfig() {
 		throw exception("Basic config wrong.");
 	}
 	
-
-	ani::initFactories();
-	trans::initFactories();
-
-	for (const auto& entry : std::filesystem::directory_iterator(getPath({  guideGlobal.petDirPath, "anis" }))) {
-		if (!entry.is_regular_file())
-			continue;
-		string pathStr = entry.path().u8string();
-		try {
-			if (endsWith(pathStr, ".anidef.json")) {
-				string defPath = pathStr.substr(pathStr.find_last_of('\\') + 1);
-				cout << "Define animations from " << defPath << '.' << endl;
-				guidePet.loadAnimations(loadJson(cache, entry.path()));
-			}
-			else if (endsWith(pathStr, ".anydef.json")) {
-				string defPath = pathStr.substr(pathStr.find_last_of('\\') + 1);
-				cout << "Define transition anytime from " << defPath << '.' << endl;
-				loadJson(cache, entry.path());
-				for (auto& transitionData : cache.items()) {
-					auto transition = trans::loadTransition(transitionData.value());
-					ani::animationController.addTransitionAnytime(transition);
-					cout << "- target: " << transition->getTransition() << endl;
-				}
-			}
-		} catch (exception& e) {
-			cout << "Error in loading json, file: " << pathStr << endl;
-		}
-	}
+	trans::init();
+	ani::init();
 
 	ani::animationController.forceTo(ani::getAnimation(guidePet.defaultAnimation));
-
-	tick::addTickUpdater(&ani::animationController);
-	viewport::addRenderer(&ani::animationController);
 
 }
 

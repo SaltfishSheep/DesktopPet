@@ -5,7 +5,7 @@
 		"behavior" : "holdOnMouse",
 		"impl" : {
 			"implType" : "SequentialShots",
-			"frameTicks" : 10,
+			"frameTicks" : 5,
 			"frameOffset" : [ 0, -30],
 			"picPath" : "pets\\test\\anis\\holdOnHand.png",
 			"picStartPoint" : [0, 0],
@@ -15,7 +15,7 @@
 		},
 		"transitions" : [
 			{
-				"target" : "idle0",
+				"target" : "idle1",
 				"conditions" : [
 					{
 						"type" : "Not",
@@ -24,8 +24,44 @@
 							"position" : ["up"],
 							"event" : ["long_pressed"]
 						}
+					},
+					{
+						"type" : "Random",
+						"chance" : 0.33
 					}
-					
+				]
+			},
+			{
+				"target" : "idle2",
+				"conditions" : [
+					{
+						"type" : "Not",
+						"sub" : {
+							"type" : "Mouse",
+							"position" : ["up"],
+							"event" : ["long_pressed"]
+						}
+					},
+					{
+						"type" : "Random",
+						"chance" : 0.4925
+					}
+				]
+			},
+			{
+				"target" : "idle3",
+				"conditions" : [
+					{
+						"type" : "Not",
+						"sub" : {
+							"type" : "Mouse",
+							"position" : ["up"],
+							"event" : ["long_pressed"]
+						}
+					},
+					{
+						"type" : "True"
+					}
 				]
 			}
 		],

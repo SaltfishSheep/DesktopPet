@@ -1,19 +1,29 @@
 #pragma once
 
 #include <json.hpp>
+#include <SFML/Graphics.hpp>
 
 
 namespace config {
 
+	inline int screenWidth, screenHeight;
+
+	inline float dpi;
+
+	inline sf::Font font;
+
 	class GuideGlobal {
 	public:
 		double tickMs = 20;
+		long long autoSaveTick = 500;
 		std::string languageDirPath;
 		std::string petDirPath;
 		std::vector<int> windowSize = { 256, 256 };
 		int nomalWindowSizeX = 1920;
+		std::string font;
+		std::string shopIcon;
 
-		NLOHMANN_DEFINE_TYPE_INTRUSIVE(GuideGlobal, tickMs, languageDirPath, petDirPath, windowSize, nomalWindowSizeX);
+		NLOHMANN_DEFINE_TYPE_INTRUSIVE(GuideGlobal, tickMs, autoSaveTick, languageDirPath, petDirPath, windowSize, nomalWindowSizeX, font, shopIcon);
 	};
 
 	inline GuideGlobal guideGlobal;

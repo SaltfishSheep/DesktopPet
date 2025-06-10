@@ -8,6 +8,7 @@
 #include "trans.h"
 
 #include <iostream>
+#include <random>
 
 using namespace ani;
 using namespace ani::impl;
@@ -19,7 +20,10 @@ std::map<std::string, Animation*> animations;
 
 Animation* animationLastLoaded = nullptr;
 
-void ani::initFactories() {
+std::random_device randomDevice;
+std::default_random_engine randomEngine(randomDevice());
+
+static void initFactories() {
 
 	auto iter = factories.begin();
 	while (iter != factories.end()) {
@@ -39,6 +43,28 @@ void ani::initFactories() {
 	for (auto factory : list)
 		factories[factory->implType()] = factory;
 }
+
+void ani::init() {
+	initFactories();
+
+	for (const auto& entry : std::filesystem::directory_iterator(file::getPath({ config::guideGlobal.petDirPath, "anis" }))) {
+		if (!entry.is_regular_file())
+			continue;
+		std::string pathStr = entry.path().u8string();
+		try {
+			if (util::endsWith(pathStr, ".anidef.json")) {
+				std::string defPath = pathStr.substr(pathStr.find_last_of('\\') + 1);
+				std::cout << "Define animations from " << defPath << '.' << std::endl;
+				auto json = file::loadJson(entry.path());
+				config::guidePet.loadAnimations(json);
+			}
+		}
+		catch (std::exception& e) {
+			std::cout << "Error in loading json, file: " << pathStr << std::endl;
+		}
+	}
+}
+
 
 Animation* ani::getAnimation(std::string aniName) {
 	return animations[aniName];
@@ -72,7 +98,6 @@ void ani::Animation::start() {
 }
 void ani::Animation::finish() {
 	this->indexFrame = -1;
-	this->behaviorData = 0;
 }
 bool ani::Animation::isPlaying() {
 	return indexFrame != -1;
@@ -84,11 +109,20 @@ void ani::Animation::render(sf::Sprite& sprite) {
 		sprite.setTexture(*impl.frame(indexFrame), true);
 		if (impl.frameRect(indexFrame) != nullptr)
 			sprite.setTextureRect(*impl.frameRect(indexFrame));
-		sprite.setPosition(sprite.getPosition() + impl.frameOffset(indexFrame));
+
 		auto rawScale = sprite.getScale();
 		auto implScale = impl.frameScale(indexFrame);
-		sprite.setScale({ rawScale.x * implScale.x, rawScale.y * implScale.y });
-		//TODO
+		sf::Vector2f newScale = { rawScale.x * implScale.x * (needReversal ? -1 : 1), rawScale.y * implScale.y };
+		sprite.setScale(newScale);
+
+		auto newPosition = sprite.getPosition() + impl.frameOffset(indexFrame);
+		if (needReversal) {
+			auto& rect = sprite.getTextureRect();
+            newPosition.x += std::abs(rect.size.x * newScale.x);
+		}
+		sprite.setPosition(newPosition);
+		
+		
 		viewport::window.draw(sprite);
 	}
 void ani::Animation::tick() {
@@ -99,6 +133,51 @@ void ani::Animation::tick() {
 		auto relativeY = behaviorData & 0xFFFFFFFF;
 		viewport::window.setPosition(sf::Mouse::getPosition() - sf::Vector2i(relativeX, relativeY));
 	}
+	else if (behavior == AnimationBehavior::follow) {
+		auto relativePosition = sf::Mouse::getPosition(viewport::window);
+		relativePosition = relativePosition - sf::Vector2i(config::guideGlobal.windowSize[0] * 0.5, config::guideGlobal.windowSize[1] * 0.5);
+		auto moveDirection = sf::Vector2i(
+			std::min(config::guidePet.walkSpeed, std::max(-config::guidePet.walkSpeed, relativePosition.x)),
+			std::min(config::guidePet.walkSpeed, std::max(-config::guidePet.walkSpeed, relativePosition.y))
+		);
+        viewport::window.setPosition(viewport::window.getPosition() + moveDirection);
+		needReversal = facing * relativePosition.x < 0;
+	}
+	else if (behavior == AnimationBehavior::walk) {
+		if (behaviorData == 0)
+			behaviorData = std::uniform_int_distribution(-config::guidePet.walkStepMax, config::guidePet.walkStepMax)(randomEngine);
+		needReversal = behaviorData * facing < 0;
+		if (behaviorData < 0) {
+			auto positionNow = viewport::window.getPosition();
+			viewport::window.setPosition({ std::max(0, positionNow.x - config::guidePet.walkSpeed), positionNow.y });
+			behaviorData++;
+		}
+		else if (behaviorData > 0) { 
+			auto positionNow = viewport::window.getPosition();
+			viewport::window.setPosition({ std::min(config::screenWidth - config::guideGlobal.windowSize[0], positionNow.x + config::guidePet.walkSpeed), positionNow.y});
+			behaviorData--;
+		}
+	}
+
+	auto impl = getImpl();
+	int frameCount = impl->frameCount();
+	bool isFrameChanged = false;
+	while (indexFrame < frameCount && this->tickFramePassed >= impl->frameDuration(indexFrame)) {
+		isFrameChanged = true;
+		this->tickFramePassed = 0;
+		this->indexFrame++;
+	}
+	if (!isFrameChanged)
+		this->tickFramePassed++;
+	if (indexFrame >= frameCount) {
+		if (isLoop)
+			indexFrame = 0;
+		else if (isHold)
+			indexFrame = frameCount - 1;
+		else
+			finish();
+	}
+
 }
 void ani::Animation::loadJson(nlohmann::json& aniData) {
 
@@ -127,28 +206,18 @@ void ani::Animation::loadJson(nlohmann::json& aniData) {
 		else if (aniData["behavior"] == "walk")
 			this->behavior = walk;
 
+	if (aniData.contains("facing"))
+		if (aniData["facing"] == "right")
+			this->facing = right;
+		else if (aniData["facing"] == "left")
+			this->facing = left;
+
 }
 void ani::Animation::onEnter() {
 	this->start();
 }
 void ani::Animation::onStay() {
-	if (!isPlaying())
-		return;
-	auto impl = getImpl();
-	if (this->tickFramePassed >= impl->frameDuration(indexFrame)) {
-		this->tickFramePassed = 0;
-		this->indexFrame++;
-	}
-	else
-		this->tickFramePassed++;
-	if (indexFrame >= impl->frameCount()) {
-		if (isLoop)
-			indexFrame = 0;
-		else if (isHold)
-			indexFrame = impl->frameCount() - 1;
-		else
-			finish();
-	}
+	
 }
 void ani::Animation::onExit() {
 	this->finish();

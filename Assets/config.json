@@ -1,7 +1,10 @@
 {
 	"tickMs" : 20.0,
+	"autoSaveTick" : 500,
 	"languageDirPath" : "zh_cn",
 	"petDirPath" : "pets\\test",
 	"windowSize" : [ 256, 256 ],
-	"nomalWindowSizeX" : 1920
+	"nomalWindowSizeX" : 2560,
+	"font" : "font.ttf",
+	"shopIcon" : "shop.png"
 }

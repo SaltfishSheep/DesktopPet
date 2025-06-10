@@ -156,8 +156,12 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="goods.cpp" />
+    <ClCompile Include="gui.cpp" />
+    <ClCompile Include="gui_shop_default.cpp" />
     <ClCompile Include="lang.cpp" />
     <ClCompile Include="mouse.cpp" />
+    <ClCompile Include="save.cpp" />
     <ClCompile Include="test.cpp" />
     <ClCompile Include="tick.cpp" />
     <ClCompile Include="trans.cpp" />
@@ -171,10 +175,16 @@
     <ClInclude Include="condition_mouse.hpp" />
     <ClInclude Include="condition_not.hpp" />
     <ClInclude Include="condition_or.hpp" />
+    <ClInclude Include="condition_playend.hpp" />
     <ClInclude Include="condition_random.hpp" />
     <ClInclude Include="condition_true.hpp" />
     <ClInclude Include="config.h" />
     <ClInclude Include="file.h" />
+    <ClInclude Include="goods.h" />
+    <ClInclude Include="gui.h" />
+    <ClInclude Include="gui_exit.hpp" />
+    <ClInclude Include="gui_money.hpp" />
+    <ClInclude Include="gui_shop_default.h" />
     <ClInclude Include="impl_custom.hpp" />
     <ClInclude Include="impl_files.hpp" />
     <ClInclude Include="impl_pic.hpp" />
@@ -183,11 +193,15 @@
     <ClInclude Include="impl_standed.hpp" />
     <ClInclude Include="lang.h" />
     <ClInclude Include="mouse.h" />
+    <ClInclude Include="save.h" />
     <ClInclude Include="test.h" />
     <ClInclude Include="tick.h" />
     <ClInclude Include="trans.h" />
     <ClInclude Include="util.h" />
     <ClInclude Include="viewport.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="saver_default.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

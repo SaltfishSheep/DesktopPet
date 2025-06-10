@@ -1,0 +1,8 @@
+[
+	{
+		"name" : "water",
+		"keyI18N" : "shop.convenience.water",
+		"price" : 200,
+		"icon" : "shops\\convenience\\water.png"
+	}
+]

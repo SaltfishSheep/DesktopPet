@@ -1,8 +1,8 @@
 {
 	"defaultAniTicks" : 10,
 	"defaultAniOffset" : [ 0.0, 0.0 ],
-	"defaultAniScale" : [ 0.512, 0.512],
-	"defaultAnimation" : "idle",
-	"walkSpeed" : 20,
-	"walkStepMax" : 20
+	"defaultAniScale" : [ 0.512, 0.512 ],
+	"defaultAnimation" : "idle1",
+	"walkSpeed" : 2,
+	"walkStepMax" : 200
 }

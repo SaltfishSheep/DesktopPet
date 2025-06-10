@@ -11,7 +11,7 @@
 
 namespace ani {
 
-	void initFactories();
+	void init();
 
 	class IAnimationImpl {
 	public:
@@ -35,6 +35,12 @@ namespace ani {
 		walk,
 		follow,
 		holdOnMouse
+	};
+
+	enum AnimationFace {
+		forward = 0,
+		right = 1,
+		left = -1
 	};
 
 	class Animation : public util::IState {
@@ -63,8 +69,11 @@ namespace ani {
 
 		AnimationBehavior behavior = AnimationBehavior::none;
 		long long behaviorData  = 0;
+		AnimationFace facing = AnimationFace::forward;
 
 		IAnimationImpl* impl = nullptr;
+
+		bool needReversal = false;
 	};
 
 	Animation* getAnimation(std::string aniName);

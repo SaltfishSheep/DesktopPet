@@ -35,8 +35,7 @@ namespace trans {
 	};
 
 	
-
-	void initFactories();
+	void init();
 
 	ICondition*  loadCondition(nlohmann::json& conditionData);
 

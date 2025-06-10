@@ -12,6 +12,4 @@ using namespace nlohmann;
 
 void test() {
 
-    SetConsoleOutputCP(65001);
-
 }
